@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2945646285201133651}
   - component: {fileID: 5727090118651530926}
   - component: {fileID: 3914746609684216221}
+  - component: {fileID: -9128592803061130642}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -93,3 +94,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-9128592803061130642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363472022874820153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ff27676662fb149be045d881b60ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehiclePos: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  maxSpeed: 0
+  frictionOn: 1
+  mass: 0
+  material1: {fileID: 2100000, guid: 4bfa7e9ef9cdd0b41ab3af188617a05b, type: 2}
+  material2: {fileID: 2100000, guid: 8cc964191fc718b49a179cb43e868455, type: 2}
+  manager: {fileID: 0}
+  fleeTarget: {fileID: 0}

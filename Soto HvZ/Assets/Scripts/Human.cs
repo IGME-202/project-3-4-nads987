@@ -1,33 +1,51 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Human : Vehicle
 {
+    public GameObject manager;
     public GameObject fleeTarget;
-    public GameObject seekTarget;
-    float fleeWeight;
-    float seekWeight;
-
-    void Start()
+    List<GameObject> zombiesList;
+    Vector3 currDistance;
+    Vector3 prevDistance;
+    Vector3 distance;
+   Vector3 ultForce;
+   
+    public override void Start()
     {
+        base.Start();
         mass = 1;
         maxSpeed = 0.025f;
-        base.Start();
-    }
-        
-  
-    public override void CalcSteeringForces()
-    {
-        Vector3 ultForce = new Vector3(0,0,0);
-        Vector3 distance = seekTarget.transform.position - fleeTarget.transform.position;
-        ultForce += Seek(seekTarget);
-        if(distance.x <5 || distance.z <5)
-        {
-            ultForce += Flee(fleeTarget);
-        }
-        ultForce = Vector3.ClampMagnitude(ultForce, maxSpeed);
-        acceleration += ultForce;
+        gameObject.GetComponent<Human>().manager = GameObject.Find("Manager");
     }
 
-}
+
+    public override Vector3 CalcSteeringForces()
+    {
+        Vector3 ultForce = Vector3.zero;
+        zombiesList = manager.GetComponent<Manager>().zombies;
+
+        for (int i = 0; i < zombiesList.Count; i++)
+        {
+            currDistance = gameObject.transform.position - zombiesList[i].transform.position;
+
+            if (currDistance.x < prevDistance.x || currDistance.z < prevDistance.z)
+            {
+                fleeTarget = zombiesList[i];
+                distance = currDistance;
+            }
+
+            prevDistance = currDistance;
+        }
+        if (distance.x < 4 || distance.z < 4)
+        {
+            ultForce += Flee(fleeTarget);
+            ultForce = Vector3.ClampMagnitude(ultForce, maxSpeed);
+            
+        }
+        return ultForce;
+    }
+
+    }
