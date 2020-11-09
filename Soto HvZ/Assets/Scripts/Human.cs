@@ -39,7 +39,7 @@ public class Human : Vehicle
 
             prevDistance = currDistance;
         }
-        if (distance.x < 4 || distance.z < 4)
+        if (distance.x < 5 || distance.z < 5)
         {
             ultForce += Flee(fleeTarget);
             ultForce = Vector3.ClampMagnitude(ultForce, maxSpeed);

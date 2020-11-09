@@ -21,24 +21,38 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        for (int i = 0; i < humans.Count; i++)
+        {
+            for (int j = 0; j < zombies.Count; j++)
+            {
+                if (CheckForCollision(humans[i].GetComponent<BoxCollider>(),zombies[j].GetComponent<BoxCollider>()))
+                {
+                    Debug.Log("hit");
+                    zombies.Add(Instantiate(zombiePrefab, humans[i].transform.position, Quaternion.identity));
+                    Destroy(humans[i]);
+                    humans.Remove(humans[i]);
+                    
+                }
+                
+            }
+        }
+        
     }
     //obj a=human obj b= zombie
     bool CheckForCollision(BoxCollider objA, BoxCollider objB)
     {
         bool isHitting = false;
-
         if (objB.bounds.min.x < objA.bounds.max.x &&
-                   objB.bounds.max.x > objA.bounds.min.x &&
-                   objB.bounds.max.y < objA.bounds.min.y &&
-                   objB.bounds.min.y < objA.bounds.max.y)
+                    objB.bounds.max.x > objA.bounds.min.x &&
+                    objB.bounds.max.z < objA.bounds.min.z &&
+                    objB.bounds.min.z < objA.bounds.max.z)
         {
             isHitting = true;
-
         }
         return isHitting;
-    }
-    
+
+    } 
+
     void Spawn()
     {
         for (int i = 0; i < 3; i++)

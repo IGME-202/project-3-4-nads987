@@ -89,10 +89,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221019320853404356}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-3757265857352400860
 MonoBehaviour:
@@ -106,11 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f3987e84d605f41a55997f4c6fa718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accMag: 0
+  vehiclePos: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   maxSpeed: 0
   frictionOn: 1
   mass: 0
   material1: {fileID: 2100000, guid: 2d1f1c4d3f03d3d4098d35ca688cb8a3, type: 2}
   material2: {fileID: 2100000, guid: 9df8a2828572e2047b09be1dccec6d95, type: 2}
+  manager: {fileID: 0}
   seekTarget: {fileID: 0}

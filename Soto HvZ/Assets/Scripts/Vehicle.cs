@@ -36,14 +36,13 @@ public abstract class Vehicle : MonoBehaviour
         WrapVehicle();
         SetTransform();
         ApplyForce(force);
-       
     }
     void UpdatePosition()
     {
         velocity += acceleration;
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
         vehiclePos += velocity;
-        vehiclePos.y = 1.5f;
+        vehiclePos.y = 1.2f;
         direction = velocity.normalized;
         acceleration = Vector3.ClampMagnitude(acceleration, 0f);
     }
@@ -147,7 +146,7 @@ public abstract class Vehicle : MonoBehaviour
         GL.Begin(GL.LINES);                 // Begin to draw lines
         GL.Vertex(vehiclePos);        // First endpoint of this line
         GL.Vertex(gameObject.transform.forward);        // Second endpoint of this line
-        Debug.Log(gameObject.transform.forward);
+        //Debug.Log(gameObject.transform.forward);
         GL.End();                       // Finish drawing the line
 
         // Second line
@@ -156,7 +155,7 @@ public abstract class Vehicle : MonoBehaviour
         GL.Begin(GL.LINES);
         GL.Vertex(vehiclePos);
         GL.Vertex(gameObject.transform.right);
-        Debug.Log(gameObject.transform.right);
+        //Debug.Log(gameObject.transform.right);
         GL.End();
     }
 

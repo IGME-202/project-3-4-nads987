@@ -28,7 +28,7 @@ public class Zombie : Vehicle
         {
             Vector3 distance = gameObject.transform.position - humansList[i].transform.position;
 
-            if (distance.x < 4 || distance.z < 4)
+            if (distance.x < 5 || distance.z < 5)
             {
                 seekTarget = humansList[i];
                 ultForce += Seek(seekTarget);
