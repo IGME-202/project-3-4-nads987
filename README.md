@@ -11,7 +11,8 @@ Humans and zombies are contained within the platform. Zombies are able to seek o
 
 
 ## User Responsibilities
-Debug lines can be turned off with the space key.
+Debug lines can be turned off with the space key.(in progress)
+
 ## Above and Beyond <kbd>OPTIONAL</kbd>
 
 What did you add or do in your program to earn above and beyond **bouns** points?
@@ -23,12 +24,12 @@ Bouns points for above and beyond will only be earned if it is listed in this fi
 
 ## Known Issues
 
-List any errors, lack of error checking, or specific information that I need to know to run your program
-There are problems with the game objects getting stuck into the corner, also the debug lines are drawn pretty weird.
+There are problems with the game objects getting stuck into the corner, also the debug lines are drawn pretty weird, they point to the origin. There were some test runs where the last human didn't get turned into a zombie. Also, there is an index problem once all humans are zombified, which would be solved with a game over that will be implemented in proj 4.
 
 ## Requirements not completed
 
 If you did not complete a project requirement, notate that here
+I was having trouble toggling the debug lines, will fix soon.Was unsure because the method isn't called.
 
 ## Sources
 
