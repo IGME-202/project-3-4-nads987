@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.Animations;
 
 public class Manager : MonoBehaviour
-{
+{   //game object lists
     public List<GameObject> humans;
     public List<GameObject> zombies;
     public List<GameObject> entities;
+    public List<Obstacle> obstacles;
+
+    //prefabs
     public GameObject humanPrefab;
     public GameObject zombiePrefab;
-    Vehicle vScript;
+    public Obstacle obstaclePrefab;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +42,7 @@ public class Manager : MonoBehaviour
         }
         
     }
-    //obj a=human obj b= zombie
+    //check if human and zombies are colliding
     bool CheckForCollision(BoxCollider objA, BoxCollider objB)
     {
         bool isHitting = false;
@@ -52,24 +56,34 @@ public class Manager : MonoBehaviour
         return isHitting;
 
     } 
-
+    //spawn alll the game objects
     void Spawn()
     {
-        for (int i = 0; i < 3; i++)
+        //spawn humans
+        for (int i = 0; i < 4; i++)
         {
-           
            Vector3 pos = new Vector3(0, 1f, 0);
            humans.Add(Instantiate(humanPrefab, pos, Quaternion.identity));
 
         }
+        //spawn zombies
         for (int i = 0; i < 3; i++)
         {
-          
             Vector3 pos = new Vector3(0, 1.5f, 0);
             zombies.Add(Instantiate(zombiePrefab, pos, Quaternion.identity));
 
         }
+        //create objects + change positions to random
+        for (int i = 0; i < 8; i++)
+        {
+            float randX = Random.Range(-9.40f, 9.40f);
+            float randZ = Random.Range(-9.40f, 9.40f);
+            Vector3 pos = new Vector3(randX, 1f, randZ);
+            obstacles.Add(Instantiate(obstaclePrefab, pos, Quaternion.identity));
+            
+        }
     }
+    //add humans and zombies to entities list and change pos
     void MakeEntityList()
     {
         for (int i = 0; i < humans.Count; i++)

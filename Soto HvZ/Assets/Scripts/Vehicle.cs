@@ -10,22 +10,29 @@ public abstract class Vehicle : MonoBehaviour
     public Vector3 acceleration;
     public float maxSpeed;
     Quaternion angle;
-    //Vector3 gravForce = new Vector3(0f, -0.003f, 0f);
+    //forces
     public bool frictionOn = true;
     public float mass;
     float coefficent;
     Vector3 force;
+   //gizmos
     public Material material1;
     public Material material2;
+    public Mesh boxMesh;
+    public GameObject manager;
+    //obstacle avoidance
 
+    public float radius = 3f;
+    public float avoidanceRange = 3f;
+    List<Obstacle> obstacles;
     // Start is called before the first frame update
-   public virtual void Start()
-   {
+    public virtual void Start()
+    {
+        //obstacles = script.GetComponent<Manager>().obstacles;
         vehiclePos = gameObject.transform.position;
-        //velocity = Vector3.zero;
+        velocity = Vector3.zero;
         direction = Vector3.up;
-        acceleration = Vector3.zero;
-       // decelerationRate = -0.1f;
+        
     }
 
     // Update is called once per frame
@@ -51,26 +58,28 @@ public abstract class Vehicle : MonoBehaviour
         transform.position = vehiclePos;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
     }
+
+    //keep the vehicle within bounds
     void WrapVehicle()
     {
-        if (vehiclePos.x >= 8.77)
+        if (vehiclePos.x >= 8.50)
         {
-            vehiclePos.x = 8.77f+1;
+            vehiclePos.x = 8.50f+1;
             Bounce(new Vector3(-1, 0, 0));
         }
         else if (vehiclePos.x <= -8.77)
         {
-            vehiclePos.x = -8.77f-1;
+            vehiclePos.x = -8.50f-1;
             Bounce(new Vector3(1, 0, 0));
         }
-        if (vehiclePos.z >= 8.77)
+        if (vehiclePos.z >= 8.50)
         {
-            vehiclePos.z = 8.77f +1;
+            vehiclePos.z = 8.50f +1;
             Bounce(new Vector3(0, 0, -1));
         }
-        else if (vehiclePos.z <= -8.77)
+        else if (vehiclePos.z <= -8.50)
         {
-            vehiclePos.z = -8.77f-1;
+            vehiclePos.z = -8.50f-1;
             Bounce(new Vector3(0, 0, 1));
         }
 
@@ -136,7 +145,53 @@ public abstract class Vehicle : MonoBehaviour
     }
     public abstract Vector3 CalcSteeringForces();
 
-    
+    protected Vector3 ObstacleAvoidance()
+    {
+        obstacles = manager.GetComponent<Manager>().obstacles;
+        Vector3 right = Vector3.Cross(velocity, Vector3.up);
+        Vector3 avoidanceSteering = Vector3.zero;
+        float dotProduct;
+        Vector3 toOther;
+        
+        foreach (Obstacle other in obstacles)
+        {
+            toOther = other.transform.position - transform.position;
+            dotProduct = Vector3.Dot(velocity, toOther);
+
+            if( dotProduct >= 0)
+            {
+                if(Vector3.Distance(transform.position,other.transform.position) < avoidanceRange + other.radius)
+                {
+                    dotProduct = Vector3.Dot(right, toOther);
+
+                    if(Mathf.Abs(dotProduct) <= radius + other.radius)
+                    {
+                        if(dotProduct>= 0)
+                        {
+                            avoidanceSteering += -right.normalized * maxSpeed;
+                        }
+                        else
+                        {
+                            avoidanceSteering += -right.normalized * maxSpeed;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return avoidanceSteering;
+    }
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, avoidanceRange);
+
+        //draw future pos
+        Gizmos.color = Color.green;
+        Vector3 futurePos = transform.position + velocity;
+        Gizmos.DrawWireSphere(futurePos, radius);
+    }
     public void OnRenderObject() // Examples of drawing lines – yours might be more complex!
     {
         // Set the material to be used for the first line

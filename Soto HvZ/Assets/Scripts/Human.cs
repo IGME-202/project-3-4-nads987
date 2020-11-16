@@ -17,7 +17,7 @@ public class Human : Vehicle
     {
         base.Start();
         mass = 1;
-        maxSpeed = 0.025f;
+        maxSpeed = 0.02f;
         gameObject.GetComponent<Human>().manager = GameObject.Find("Manager");
     }
 
@@ -26,7 +26,7 @@ public class Human : Vehicle
     {
         Vector3 ultForce = Vector3.zero;
         zombiesList = manager.GetComponent<Manager>().zombies;
-
+        ultForce += ObstacleAvoidance();
         for (int i = 0; i < zombiesList.Count; i++)
         {
             currDistance = gameObject.transform.position - zombiesList[i].transform.position;

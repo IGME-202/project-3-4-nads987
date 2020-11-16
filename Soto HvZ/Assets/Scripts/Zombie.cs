@@ -12,8 +12,8 @@ public class Zombie : Vehicle
     public override void Start()
     {
         base.Start();
-        mass = 5;
-        maxSpeed = 0.02f;
+        mass = 7;
+        maxSpeed = 0.01f;
         gameObject.GetComponent<Zombie>().manager = GameObject.Find("Manager");
 
     }
