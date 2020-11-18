@@ -1,11 +1,10 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Human : Vehicle
 {
-    public GameObject manager;
     public GameObject fleeTarget;
     List<GameObject> zombiesList;
     Vector3 currDistance;
@@ -39,7 +38,7 @@ public class Human : Vehicle
 
             prevDistance = currDistance;
         }
-        if (distance.x < 5 || distance.z < 5)
+        if (distance.x < 3 || distance.z < 3)
         {
             ultForce += Flee(fleeTarget);
             ultForce = Vector3.ClampMagnitude(ultForce, maxSpeed);

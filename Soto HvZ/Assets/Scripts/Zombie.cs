@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Zombie : Vehicle
 {
-    public GameObject manager;
     public GameObject seekTarget;
     List<GameObject> humansList;
 
@@ -12,7 +11,7 @@ public class Zombie : Vehicle
     public override void Start()
     {
         base.Start();
-        mass = 7;
+        mass = 5;
         maxSpeed = 0.01f;
         gameObject.GetComponent<Zombie>().manager = GameObject.Find("Manager");
 
@@ -28,7 +27,7 @@ public class Zombie : Vehicle
         {
             Vector3 distance = gameObject.transform.position - humansList[i].transform.position;
 
-            if (distance.x < 5 || distance.z < 5)
+            if (distance.x < 3 || distance.z < 3)
             {
                 seekTarget = humansList[i];
                 ultForce += Seek(seekTarget);

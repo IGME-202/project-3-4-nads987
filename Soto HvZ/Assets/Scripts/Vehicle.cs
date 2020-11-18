@@ -28,7 +28,6 @@ public abstract class Vehicle : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        //obstacles = script.GetComponent<Manager>().obstacles;
         vehiclePos = gameObject.transform.position;
         velocity = Vector3.zero;
         direction = Vector3.up;
@@ -62,25 +61,25 @@ public abstract class Vehicle : MonoBehaviour
     //keep the vehicle within bounds
     void WrapVehicle()
     {
-        if (vehiclePos.x >= 8.50)
+        if (vehiclePos.x >= 9f)
         {
-            vehiclePos.x = 8.50f+1;
-            Bounce(new Vector3(-1, 0, 0));
+            vehiclePos.x = 9f-1f;
+            Bounce(new Vector3(-2, 0, 0));
         }
-        else if (vehiclePos.x <= -8.77)
+        else if (vehiclePos.x <= -9f)
         {
-            vehiclePos.x = -8.50f-1;
-            Bounce(new Vector3(1, 0, 0));
+            vehiclePos.x = -9f+1f;
+            Bounce(new Vector3(2, 0, 0));
         }
-        if (vehiclePos.z >= 8.50)
+        if (vehiclePos.z >= 9.5f)
         {
-            vehiclePos.z = 8.50f +1;
-            Bounce(new Vector3(0, 0, -1));
+            vehiclePos.z = 9.5f -1f;
+            Bounce(new Vector3(0, 0, -2));
         }
-        else if (vehiclePos.z <= -8.50)
+        else if (vehiclePos.z <= -9.5f)
         {
-            vehiclePos.z = -8.50f-1;
-            Bounce(new Vector3(0, 0, 1));
+            vehiclePos.z = -9.5f+1f;
+            Bounce(new Vector3(0, 0, 2));
         }
 
 
@@ -147,7 +146,7 @@ public abstract class Vehicle : MonoBehaviour
 
     protected Vector3 ObstacleAvoidance()
     {
-        obstacles = manager.GetComponent<Manager>().obstacles;
+       obstacles = manager.GetComponent<Manager>().obstacles;
         Vector3 right = Vector3.Cross(velocity, Vector3.up);
         Vector3 avoidanceSteering = Vector3.zero;
         float dotProduct;
@@ -172,7 +171,7 @@ public abstract class Vehicle : MonoBehaviour
                         }
                         else
                         {
-                            avoidanceSteering += -right.normalized * maxSpeed;
+                            avoidanceSteering += right.normalized * maxSpeed;
                         }
                     }
                 }
@@ -199,7 +198,7 @@ public abstract class Vehicle : MonoBehaviour
 
         // Draws one line		
         GL.Begin(GL.LINES);                 // Begin to draw lines
-        GL.Vertex(vehiclePos);        // First endpoint of this line
+        GL.Vertex(transform.position);        // First endpoint of this line
         GL.Vertex(gameObject.transform.forward);        // Second endpoint of this line
         //Debug.Log(gameObject.transform.forward);
         GL.End();                       // Finish drawing the line
@@ -208,7 +207,7 @@ public abstract class Vehicle : MonoBehaviour
         // Set another material to draw this second line in a different color
         material2.SetPass(0);
         GL.Begin(GL.LINES);
-        GL.Vertex(vehiclePos);
+        GL.Vertex(transform.position);
         GL.Vertex(gameObject.transform.right);
         //Debug.Log(gameObject.transform.right);
         GL.End();

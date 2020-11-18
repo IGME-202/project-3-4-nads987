@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class Manager : MonoBehaviour
 {   //game object lists
@@ -14,7 +13,10 @@ public class Manager : MonoBehaviour
     public GameObject humanPrefab;
     public GameObject zombiePrefab;
     public Obstacle obstaclePrefab;
-   
+
+    int humansAmt = 4;
+    int zombiesAmt = 2;
+    int objectsAmt = 6;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,10 @@ public class Manager : MonoBehaviour
                 
             }
         }
-        
+        if(humans.Count ==0)
+        {
+            Debug.Log("All humans caught");
+        }
     }
     //check if human and zombies are colliding
     bool CheckForCollision(BoxCollider objA, BoxCollider objB)
@@ -60,21 +65,21 @@ public class Manager : MonoBehaviour
     void Spawn()
     {
         //spawn humans
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < humansAmt; i++)
         {
            Vector3 pos = new Vector3(0, 1f, 0);
            humans.Add(Instantiate(humanPrefab, pos, Quaternion.identity));
 
         }
         //spawn zombies
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < zombiesAmt; i++)
         {
             Vector3 pos = new Vector3(0, 1.5f, 0);
             zombies.Add(Instantiate(zombiePrefab, pos, Quaternion.identity));
 
         }
         //create objects + change positions to random
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < objectsAmt; i++)
         {
             float randX = Random.Range(-9.40f, 9.40f);
             float randZ = Random.Range(-9.40f, 9.40f);
