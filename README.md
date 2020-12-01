@@ -7,33 +7,29 @@
 **PLEASE REPLACE THE TEXT IN EACH SECTION WITH YOUR OWN DOCUMENTATION**
 
 ## Description
-Humans and zombies are contained within the platform. Zombies are able to seek out humans while Humans flee when the zombies are near. If a human is caught, the human will turn into a zombie.
+Humans and zombies are contained within the platform. Zombies are able to seek out humans while Humans flee when the zombies are near. If a human is caught, the human will turn into a zombie. Once all humans are caught, the zombies will wander around the platform.
 
 
 ## User Responsibilities
-Debug lines can be turned off with the space key.(in progress)
+Use the buttonb to generate more zombies and/or humans.
 
 ## Above and Beyond <kbd>OPTIONAL</kbd>
-
-What did you add or do in your program to earn above and beyond **bouns** points?
-
--   Be specific and explicit!
--   We are not mind readers.
-
-Bouns points for above and beyond will only be earned if it is listed in this file.
+I added buttons to add more zombies and humans using the Canvas and on click events.
 
 ## Known Issues
 
-There are problems with the game objects getting stuck into the corner, also the debug lines are drawn pretty weird, they point to the origin. There were some test runs where the last human didn't get turned into a zombie. Also, there is an index problem once all humans are zombified, which would be solved with a game over that will be implemented in proj 4.
+Sometimes, the script will give "transform position attempt is invalid" randomly, and will keep the gameObject in place. I also had a problem with having LookRotation and having
+the gameObjects upright. So, Look Rotation line is commented out. I don't think the Seperation properly works. Sometimes, the gameObjects will come off the platform.
 
 ## Requirements not completed
 
 If you did not complete a project requirement, notate that here
-I was having trouble toggling the debug lines, will fix soon.Was unsure because the method isn't called.
+Debugs aren't drawn correctly.
 
 ## Sources
 
 -   List all project sources here – models, textures, sound clips, assets, etc.
+https://assetstore.unity.com/packages/3d/characters/animals/5-animated-voxel-animals-145754
 
 
 ## Notes
