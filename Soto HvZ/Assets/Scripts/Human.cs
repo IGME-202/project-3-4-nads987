@@ -11,40 +11,26 @@ public class Human : Vehicle
     Vector3 prevDistance;
     Vector3 distance;
    Vector3 ultForce;
-   
+    public bool near;
+    
     public override void Start()
     {
+        
         base.Start();
         mass = 1;
-        maxSpeed = 0.02f;
+        maxSpeed = 0.018f;
         gameObject.GetComponent<Human>().manager = GameObject.Find("Manager");
     }
 
 
-    public override Vector3 CalcSteeringForces()
+    public override void CalcSteeringForces()
     {
         Vector3 ultForce = Vector3.zero;
-        zombiesList = manager.GetComponent<Manager>().zombies;
+        if (near == true)
+        { ultForce += Evade(fleeTarget); }
         ultForce += ObstacleAvoidance();
-        for (int i = 0; i < zombiesList.Count; i++)
-        {
-            currDistance = gameObject.transform.position - zombiesList[i].transform.position;
-
-            if (currDistance.x < prevDistance.x || currDistance.z < prevDistance.z)
-            {
-                fleeTarget = zombiesList[i];
-                distance = currDistance;
-            }
-
-            prevDistance = currDistance;
-        }
-        if (distance.x < 3 || distance.z < 3)
-        {
-            ultForce += Flee(fleeTarget);
-            ultForce = Vector3.ClampMagnitude(ultForce, maxSpeed);
-            
-        }
-        return ultForce;
+        ultForce = Vector3.ClampMagnitude(ultForce, maxSpeed);
+        ApplyForce(ultForce);
     }
 
     }
